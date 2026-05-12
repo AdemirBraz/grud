@@ -11,19 +11,15 @@ def criar_arq(nome):
     except Exception as e:
         print(f'Erro ao criar arquivo: {e}')
                
-def lerarq(nome):
+def ler_arq(nome):
+    menu1.cabeçalho('PESSOAS CADASTRADAS')
     try:
-        a=open(nome,'rt')
-    except:
-        print('erro ao ler arquivo')
-    else:
-        menu1.cabeçalho('PESSOAS CADASTRADAS')
-        for linha in a:
-            dado=linha.split(';')
-            dado[1]=dado[1].replace('\n','')
-            print(f'{dado[0]:<20}  {dado[1]:>3} Anos')
-    finally:   
-            a.close()
+        with open(nome, 'r') as a:
+            for linha in a:
+                nome_p, idade = linha.strip().split(';')
+                print(f'{nome_p:<20}  {idade:>3} Anos')
+    except Exception as e:
+        print(f'Erro ao ler arquivo: {e}')
         
 def cadastrar(arq,nome='DESCONHECIDO',idade=0):
     try:
