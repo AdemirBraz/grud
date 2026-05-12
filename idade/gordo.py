@@ -28,31 +28,45 @@ def cadastrar(arq, nome='DESCONHECIDO', idade=0):
         print(f'Cadastro de {nome} criado com sucesso')
     except Exception as e:
         print(f'Erro ao cadastrar: {e}')
-  
+
+# helpers para o editar ------------------------
+def _ler_linhas(arq):
+    with open(arq, 'r') as a:
+        return a.readlines()
+ 
+ 
+def _salvar_linhas(arq, linhas):
+    with open(arq, 'w') as a:
+        a.writelines(linhas)
+ 
+ 
+def _mostrar_lista(linhas, titulo):
+    menu1.cabeçalho(titulo)
+    for i, linha in enumerate(linhas, start=1):
+        nome_p, idade = linha.strip().split(';')
+        print(f'[{i}] {nome_p:<20}  {idade:>3} Anos')
+ 
+# editar ---------------------------------------
 def editar(arq):
     try:
-        with open(arq,'rt') as a:
-            linhas=a.readlines()
-    except:
-        print('ERRO AO EDITAR O ARQUIVO')
+        linhas = _ler_linhas(arq)
+    except Exception as e:
+        print(f'Erro ao abrir arquivo: {e}')
+        return
+ 
+    _mostrar_lista(linhas, 'EDITAR CADASTRO')
+    idx = menu1.leiaint('Número do cadastro a editar: ') - 1
+ 
+    if 0 <= idx < len(linhas):
+        nome = input('Novo nome: ')
+        idade = menu1.leiaint('Nova idade: ')
+        linhas[idx] = f'{nome};{idade}\n'
+        _salvar_linhas(arq, linhas)
+        print('Cadastro editado com sucesso')
     else:
-        menu1.cabeçalho('EDITAR CADASTRO')
-        for c,linha in enumerate(linhas, start=1):
-            dado=linha.split(';')
-            dado[1]=dado[1].replace('\n','')
-            print(f'[{c}] - {dado[0]}  {dado[1]} Anos')
-        editor=int(input('digite o numero do cadastro que deseja editar: '))
-        if 1 <= editor <= len(linhas):
-            nome=str(input('novo nome: '))
-            idade=menu1.leiaint('nova idade: ')    
-            linhas[editor-1]=f'{nome};{idade}\n'        
-        try:            
-            with open(arq,'wt') as a:
-                a.writelines(linhas)
-        except:
-            print('ERRO AO EDITAR O ARQUIVO') 
-        else:
-            print('cadastro editado com sucesso')
+        print('Número inválido')
+
+
 def excluir(arq):
     try:
         with open(arq,'rt') as a:
