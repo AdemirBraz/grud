@@ -1,43 +1,38 @@
 from time import sleep
-from unittest import case
-from idade.gordo import arquivoexiste
-from idade.gordo import criararq
-from idade.gordo import lerarq
-from idade.gordo import cadastrar
-from menu.menu1 import menu
-from menu.menu1 import linha
-from menu.menu1 import cabeçalho
-from menu.menu1 import leiaint
-from idade.gordo import editar
-from idade.gordo import excluir
-arq = 'arquivo.txt'
-if not arquivoexiste(arq):
-    criararq(arq)
+from idade import gordo
+from menu import menu1
+
+ARQ = 'arquivo.txt'
+
+if not gordo.arquivo_existe(ARQ):
+    gordo.criar_arq(ARQ)
 
 while True:
-    n=menu(['ver pessoas cadastradas','cadastrar nova pessoa','editar cadastro','excluir cadastro','sair do programa'])
-    linha()
+    n = menu1.menu([
+        'Ver pessoas cadastradas',
+        'Cadastrar nova pessoa',
+        'Editar cadastro',
+        'Excluir cadastro',
+        'Sair do programa',
+    ])
+    menu1.linha()
+
     match n:
         case 1:
-            lerarq(arq)
-            sleep(1)
-            continue
+            gordo.ler_arq(ARQ)
         case 2:
-            cabeçalho('novo cadastro')
-            nome=str(input('nome: ')) 
-            idade1=leiaint('Idade: ')
-            cadastrar(arq,nome,idade1)
-            sleep(1) 
-            continue
+            menu1.cabeçalho('NOVO CADASTRO')
+            nome = str(input('Nome: '))
+            idade = menu1.leiaint('Idade: ')
+            gordo.cadastrar(ARQ, nome, idade)
         case 3:
-            editar(arq)
-            sleep(1)
+            gordo.editar(ARQ)
         case 4:
-            excluir(arq)
-            sleep(1)
+            gordo.excluir(ARQ)
         case 5:
-            cabeçalho('seu programa acabou')
-            break   
+            menu1.cabeçalho('Programa encerrado')
+            break
         case _:
-            print('erro digite uma opção valida')
-            sleep(1)
+            print('Opção inválida')
+
+    sleep(1)
