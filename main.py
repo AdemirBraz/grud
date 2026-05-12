@@ -8,7 +8,7 @@ if not crud.arquivo_existe(ARQ):
     crud.criar_arq(ARQ)
 
 while True:
-    n = menu_ui.menu([
+    opcoes = menu_ui.menu([
         'Ver pessoas cadastradas',
         'Cadastrar nova pessoa',
         'Editar cadastro',
@@ -17,7 +17,7 @@ while True:
     ])
     menu_ui.linha()
 
-    match n:
+    match opcoes:
         case 1:
             crud.ler_arq(ARQ)
         case 2:
