@@ -29,7 +29,7 @@ def cadastrar(arq, nome='DESCONHECIDO', idade=0):
     except Exception as e:
         print(f'Erro ao cadastrar: {e}')
 
-# helpers para o editar ------------------------
+# helpers ------------------------
 def _ler_linhas(arq):
     with open(arq, 'r') as a:
         return a.readlines()
@@ -69,23 +69,17 @@ def editar(arq):
 
 def excluir(arq):
     try:
-        with open(arq,'rt') as a:
-            linhas=a.readlines()
-    except:
-        print('erro ao ler arquivo')
+        linhas = _ler_linhas(arq)
+    except Exception as e:
+        print(f'Erro ao abrir arquivo: {e}')
+        return
+ 
+    _mostrar_lista(linhas, 'EXCLUIR CADASTRO')
+    idx = menu1.leiaint('Número do cadastro a excluir: ') - 1
+ 
+    if 0 <= idx < len(linhas):
+        del linhas[idx]
+        _salvar_linhas(arq, linhas)
+        print('Cadastro excluído com sucesso')
     else:
-        menu1.cabeçalho('EXCLUIR CADASTRO')
-        for c,linha in enumerate(linhas, start=1):
-            dado=linha.split(';')
-            dado[1]=dado[1].replace('\n',' ')
-            print(f'{c} - {dado[0]:<20}  {dado[1]:>3} Anos') 
-        excluir=int(input('digite o numero que deseja excluir: '))   
-        if 1 <= excluir <= len(linhas):
-            del linhas[excluir-1]
-            with open(arq,'wt') as a:
-                a.writelines(linhas)
-            print('cadastro excluido com sucesso')
-        else:
-            print('numero invalido')              
-    finally:
-        a.close()
+        print('Número inválido')
