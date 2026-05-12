@@ -1,13 +1,8 @@
 from menu import menu1
+import os
 
-def arquivoexiste(nome):
-    try:
-        a=open(nome,'rt')
-        a.close()
-    except FileNotFoundError:
-        return False
-    else:
-        return True
+def arquivo_existe(nome):
+    return os.path.exists(nome)
     
 def criararq(nome):
     try:
