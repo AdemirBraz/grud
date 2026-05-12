@@ -4,14 +4,12 @@ import os
 def arquivo_existe(nome):
     return os.path.exists(nome)
     
-def criararq(nome):
+def criar_arq(nome):
     try:
-        a=open(nome,'wt+')
-        a.close()
-    except:
-        print('erro ao criar arquivo')
-    else:
-        print(f'Arquivo {nome} crianda com sucesso') 
+        open(nome, 'w').close()
+        print(f'Arquivo {nome} criado com sucesso')
+    except Exception as e:
+        print(f'Erro ao criar arquivo: {e}')
                
 def lerarq(nome):
     try:
