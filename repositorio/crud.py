@@ -1,4 +1,4 @@
-from menu import menu1
+from UI import menu_ui
 import os
 
 def arquivo_existe(nome):
@@ -12,7 +12,7 @@ def criar_arq(nome):
         print(f'Erro ao criar arquivo: {e}')
                
 def ler_arq(nome):
-    menu1.cabeçalho('PESSOAS CADASTRADAS')
+    menu_ui.cabeçalho('PESSOAS CADASTRADAS')
     try:
         with open(nome, 'r') as arquivo:
             for linha in arquivo:
@@ -41,7 +41,7 @@ def _salvar_linhas(arq, linhas):
  
  
 def _mostrar_lista(linhas, titulo):
-    menu1.cabeçalho(titulo)
+    menu_ui.cabeçalho(titulo)
     for i, linha in enumerate(linhas, start=1):
         nome_p, idade = linha.strip().split(';')
         print(f'[{i}] {nome_p:<20}  {idade:>3} Anos')
@@ -55,11 +55,11 @@ def editar(arq):
         return
  
     _mostrar_lista(linhas, 'EDITAR CADASTRO')
-    idx = menu1.leiaint('Número do cadastro a editar: ') - 1
+    idx = menu_ui.leiaint('Número do cadastro a editar: ') - 1
  
     if 0 <= idx < len(linhas):
         nome = input('Novo nome: ')
-        idade = menu1.leiaint('Nova idade: ')
+        idade = menu_ui.leiaint('Nova idade: ')
         linhas[idx] = f'{nome};{idade}\n'
         _salvar_linhas(arq, linhas)
         print('Cadastro editado com sucesso')
@@ -75,7 +75,7 @@ def excluir(arq):
         return
  
     _mostrar_lista(linhas, 'EXCLUIR CADASTRO')
-    idx = menu1.leiaint('Número do cadastro a excluir: ') - 1
+    idx = menu_ui.leiaint('Número do cadastro a excluir: ') - 1
  
     if 0 <= idx < len(linhas):
         del linhas[idx]

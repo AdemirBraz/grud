@@ -1,36 +1,36 @@
 from time import sleep
-from idade import gordo
-from menu import menu1
+from repositorio import crud
+from UI import menu_ui
 
 ARQ = 'arquivo.txt'
 
-if not gordo.arquivo_existe(ARQ):
-    gordo.criar_arq(ARQ)
+if not crud.arquivo_existe(ARQ):
+    crud.criar_arq(ARQ)
 
 while True:
-    n = menu1.menu([
+    n = menu_ui.menu([
         'Ver pessoas cadastradas',
         'Cadastrar nova pessoa',
         'Editar cadastro',
         'Excluir cadastro',
         'Sair do programa',
     ])
-    menu1.linha()
+    menu_ui.linha()
 
     match n:
         case 1:
-            gordo.ler_arq(ARQ)
+            crud.ler_arq(ARQ)
         case 2:
-            menu1.cabeçalho('NOVO CADASTRO')
+            menu_ui.cabeçalho('NOVO CADASTRO')
             nome = str(input('Nome: '))
-            idade = menu1.leiaint('Idade: ')
-            gordo.cadastrar(ARQ, nome, idade)
+            idade = menu_ui.leiaint('Idade: ')
+            crud.cadastrar(ARQ, nome, idade)
         case 3:
-            gordo.editar(ARQ)
+            crud.editar(ARQ)
         case 4:
-            gordo.excluir(ARQ)
+            crud.excluir(ARQ)
         case 5:
-            menu1.cabeçalho('Programa encerrado')
+            menu_ui.cabeçalho('Programa encerrado')
             break
         case _:
             print('Opção inválida')
