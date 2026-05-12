@@ -14,8 +14,8 @@ def criar_arq(nome):
 def ler_arq(nome):
     menu1.cabeçalho('PESSOAS CADASTRADAS')
     try:
-        with open(nome, 'r') as arq:
-            for linha in arq:
+        with open(nome, 'r') as arquivo:
+            for linha in arquivo:
                 nome_p, idade = linha.strip().split(';')
                 print(f'{nome_p:<20}  {idade:>3} Anos')
     except Exception as e:
@@ -23,8 +23,8 @@ def ler_arq(nome):
         
 def cadastrar(arq, nome='DESCONHECIDO', idade=0):
     try:
-        with open(arq, 'a') as a:
-            a.write(f'{nome};{idade}\n')
+        with open(arq, 'a') as arquivo:
+            arquivo.write(f'{nome};{idade}\n')
         print(f'Cadastro de {nome} criado com sucesso')
     except Exception as e:
         print(f'Erro ao cadastrar: {e}')
