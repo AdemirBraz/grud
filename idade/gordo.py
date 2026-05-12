@@ -28,9 +28,9 @@ def lerarq(nome):
         for linha in a:
             dado=linha.split(';')
             dado[1]=dado[1].replace('\n','')
-            print(f'{dado[0]}  {dado[1]} Anos')    
-    finally:
-        a.close()
+            print(f'{dado[0]:<20}  {dado[1]:>3} Anos')
+    finally:   
+            a.close()
         
 def cadastrar(arq,nome='DESCONHECIDO',idade=0):
     try:
@@ -39,7 +39,7 @@ def cadastrar(arq,nome='DESCONHECIDO',idade=0):
         print('ERRO AO CADASTRAR')
     else:
         try:
-            a.write(f'{nome};{idade}')
+            a.write(f'{nome};{idade}\n')
         except:
             print('ERRO AO CRIAR CADASTRO')
         else:
@@ -70,6 +70,25 @@ def editar(arq):
             print('ERRO AO EDITAR O ARQUIVO') 
         else:
             print('cadastro editado com sucesso')
-              
+def excluir(arq):
+    try:
+        with open(arq,'rt') as a:
+            linhas=a.readlines()
+    except:
+        print('erro ao ler arquivo')
+    else:
+        menu1.cabeçalho('EXCLUIR CADASTRO')
+        for c,linha in enumerate(linhas, start=1):
+            dado=linha.split(';')
+            dado[1]=dado[1].replace('\n',' ')
+            print(f'{c} - {dado[0]:<20}  {dado[1]:>3} Anos') 
+        excluir=int(input('digite o numero que deseja excluir: '))   
+        if 1 <= excluir <= len(linhas):
+            del linhas[excluir-1]
+            with open(arq,'wt') as a:
+                a.writelines(linhas)
+            print('cadastro excluido com sucesso')
+        else:
+            print('numero invalido')              
     finally:
         a.close()
