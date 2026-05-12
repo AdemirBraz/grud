@@ -31,13 +31,13 @@ def cadastrar(arq, nome='DESCONHECIDO', idade=0):
 
 # helpers ------------------------
 def _ler_linhas(arq):
-    with open(arq, 'r') as a:
-        return a.readlines()
+    with open(arq, 'r') as arquivo:
+        return arquivo.readlines()
  
  
 def _salvar_linhas(arq, linhas):
-    with open(arq, 'w') as a:
-        a.writelines(linhas)
+    with open(arq, 'w') as arquivo:
+        arquivo.writelines(linhas)
  
  
 def _mostrar_lista(linhas, titulo):
