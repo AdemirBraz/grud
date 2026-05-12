@@ -46,4 +46,30 @@ def cadastrar(arq,nome='DESCONHECIDO',idade=0):
             print(f'Cadastro Do {nome},Criado Com Sucesso')
             a.close
     return cadastrar    
-    
+def editar(arq):
+    try:
+        with open(arq,'rt') as a:
+            linhas=a.readlines()
+    except:
+        print('ERRO AO EDITAR O ARQUIVO')
+    else:
+        menu1.cabeçalho('EDITAR CADASTRO')
+        for c,linha in enumerate(linhas, start=1):
+            dado=linha.split(';')
+            dado[1]=dado[1].replace('\n','')
+            print(f'[{c}] - {dado[0]}  {dado[1]} Anos')
+        editor=int(input('digite o numero do cadastro que deseja editar: '))
+        if 1 <= editor <= len(linhas):
+            nome=str(input('novo nome: '))
+            idade=menu1.leiaint('nova idade: ')    
+            linhas[editor-1]=f'{nome};{idade}\n'        
+        try:            
+            with open(arq,'wt') as a:
+                a.writelines(linhas)
+        except:
+            print('ERRO AO EDITAR O ARQUIVO') 
+        else:
+            print('cadastro editado com sucesso')
+              
+    finally:
+        a.close()

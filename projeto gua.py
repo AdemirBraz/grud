@@ -1,13 +1,13 @@
 from time import sleep
 from idade import gordo
 from menu import menu1
-import menu
+from idade.gordo import editar
 arq = 'arquivo.txt'
 if not gordo.arquivoexiste(arq):
     gordo.criararq(arq)
 
 while True:
-    n=menu1.menu(['ver pessoas cadastradas','cadastrar nova pessoa','sair do programa'])
+    n=menu1.menu(['ver pessoas cadastradas','cadastrar nova pessoa','editar cadastro','sair do programa'])
     menu1.linha()
     if n==1:
         gordo.lerarq(arq)
@@ -21,6 +21,9 @@ while True:
         sleep(1) 
         continue
     elif n==3:
+        editar(arq)
+        sleep(1)
+    elif n==4:
         menu1.cabeçalho('seu programa acabou')
         break   
     else:
