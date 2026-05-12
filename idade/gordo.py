@@ -21,20 +21,14 @@ def ler_arq(nome):
     except Exception as e:
         print(f'Erro ao ler arquivo: {e}')
         
-def cadastrar(arq,nome='DESCONHECIDO',idade=0):
+def cadastrar(arq, nome='DESCONHECIDO', idade=0):
     try:
-        a=open(arq,'at')
-    except:
-        print('ERRO AO CADASTRAR')
-    else:
-        try:
+        with open(arq, 'a') as a:
             a.write(f'{nome};{idade}\n')
-        except:
-            print('ERRO AO CRIAR CADASTRO')
-        else:
-            print(f'Cadastro Do {nome},Criado Com Sucesso')
-            a.close
-    return cadastrar    
+        print(f'Cadastro de {nome} criado com sucesso')
+    except Exception as e:
+        print(f'Erro ao cadastrar: {e}')
+  
 def editar(arq):
     try:
         with open(arq,'rt') as a:
