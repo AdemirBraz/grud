@@ -14,8 +14,8 @@ def criar_arq(nome):
 def ler_arq(nome):
     menu1.cabeçalho('PESSOAS CADASTRADAS')
     try:
-        with open(nome, 'r') as a:
-            for linha in a:
+        with open(nome, 'r') as arq:
+            for linha in arq:
                 nome_p, idade = linha.strip().split(';')
                 print(f'{nome_p:<20}  {idade:>3} Anos')
     except Exception as e:
