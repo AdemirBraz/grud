@@ -58,9 +58,19 @@ def editar(arq):
     idx = menu_ui.leiaint('Número do cadastro a editar: ') - 1
  
     if 0 <= idx < len(linhas):
-        nome = input('Novo nome: ')
+        nome=str(input('Novo nome: ')).strip()
+        while not nome or nome.isnumeric() or nome.isspace():
+            print('Nome inválido. Tente novamente.')
+            nome=str(input('Novo nome: ')).strip()
         idade = menu_ui.leiaint('Nova idade: ')
+        while idade < 0 or idade > 120 or not isinstance(idade, int):
+            print('Idade Inválida. Tente novamente.')
+            idade = menu_ui.leiaint('Nova idade: ')
         linhas[idx] = f'{nome};{idade}\n'
+        
+        if idade < 0:
+            print('Idade não pode ser negativa. Editação cancelada.')
+            return
         _salvar_linhas(arq, linhas)
         print('Cadastro editado com sucesso')
     else:

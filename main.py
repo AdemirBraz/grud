@@ -23,7 +23,13 @@ while True:
         case 2:
             menu_ui.cabeçalho('NOVO CADASTRO')
             nome = str(input('Nome: '))
+            while not nome or nome.isnumeric() or nome.isspace():
+                print('Nome inválido. Tente novamente.')
+                nome = str(input('Nome: '))
             idade = menu_ui.leiaint('Idade: ')
+            while idade < 0 or idade > 120 or not isinstance(idade, int):
+                print('Idade Inválida. Tente novamente.')
+                idade = menu_ui.leiaint('Idade: ')
             crud.cadastrar(ARQ, nome, idade)
         case 3:
             crud.editar(ARQ)
