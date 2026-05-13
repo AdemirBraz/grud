@@ -15,6 +15,10 @@ def ler_arq(nome):
     menu_ui.cabeçalho('PESSOAS CADASTRADAS')
     try:
         with open(nome, 'r') as arquivo:
+            conteudo = arquivo.read().strip()
+            if not conteudo:
+                print('Nenhum cadastro encontrado.')
+                return
             for linha in arquivo:
                 nome_p, idade = linha.strip().split(';')
                 print(f'{nome_p:<20}  {idade:>3} Anos')
@@ -55,8 +59,10 @@ def editar(arq):
         return
  
     _mostrar_lista(linhas, 'EDITAR CADASTRO')
-    idx = menu_ui.leiaint('Número do cadastro a editar: ') - 1
- 
+    if not linhas:
+        print('Nenhum cadastro para editar.')
+        return
+    idx = menu_ui.leiaint('Número do cadastro a editar: ') - 1 
     if 0 <= idx < len(linhas):
         nome=str(input('Novo nome: ')).strip()
         while not nome or nome.isnumeric() or nome.isspace():
